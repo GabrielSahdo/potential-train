@@ -1,5 +1,9 @@
+import DatabaseFactory from './src/db/databaseFactory.ts';
+
 const port: number = Number(process.env.PORT) || 3000;
 const hostname = process.env.HOSTNAME || 'localhost';
+
+const db = DatabaseFactory.create({}, true);
 
 Bun.serve({
     port,
