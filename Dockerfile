@@ -1,5 +1,5 @@
 FROM oven/bun
 WORKDIR /usr/app
 COPY package.json .
-RUN bun install --quiet
+RUN bun install
 COPY . .

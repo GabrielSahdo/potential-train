@@ -7,6 +7,7 @@
     "generate": "drizzle-kit generate:sqlite"
   },
   "devDependencies": {
+    "@types/node": "^20.8.4",
     "bun-types": "latest",
     "drizzle-kit": "^0.19.13"
   },
