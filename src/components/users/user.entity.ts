@@ -1,5 +1,9 @@
-import crypto from 'node:crypto';
-import { UserDB } from '../db/schema';
+import { UserDB } from '../../db/schema';
+
+export interface IUserDTO {
+    id: string;
+    email: string;
+}
 
 export class User {
     id: string;
@@ -23,12 +27,12 @@ export class User {
         };
     }
 
-    static fromDAO(dao: Array<any>): User {
+    static fromDAO(dao: UserDB): User {
         return new User(
-            dao[0] as string,
-            dao[1] as string,
-            dao[2] as string,
-            dao[3] as string,
+            dao.id as string,
+            dao.email as string,
+            dao.salt as string,
+            dao.passwordHash as string,
         );
     }
 
@@ -45,7 +49,7 @@ export class User {
         );
     }
 
-    toDTO(): any {
+    toDTO(): IUserDTO {
         return {
             id: this.id,
             email: this.email,

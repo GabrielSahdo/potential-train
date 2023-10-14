@@ -1,7 +1,11 @@
 import { eq } from "drizzle-orm";
 import { BunSQLiteDatabase } from "drizzle-orm/bun-sqlite";
-import { UserDB, users } from "../db/schema";
-import { IUserDAO } from "./user.dao.interface";
+import { UserDB, users } from "../../db/schema";
+
+export interface IUserDAO {
+    findByEmail(email: string): Promise<Array<UserDB>>;
+    create(user: any): Promise<void>;
+}
 
 export class UserDAO implements IUserDAO {
     constructor(private db: BunSQLiteDatabase) {}

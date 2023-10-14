@@ -1,5 +1,6 @@
+import { IUserDAO } from './user.dao';
 import { User } from './user.entity';
-import { IUserDAO } from './user.dao.interface';
+
 
 export default class UsersService {
 
@@ -10,7 +11,7 @@ export default class UsersService {
 
         return userFound.length === 0
             ? null
-            : User.fromDAO(userFound);
+            : User.fromDAO(userFound[0]);
     }
 
     async create(email: string, password: string): Promise<string> {
@@ -32,7 +33,7 @@ export default class UsersService {
         if (!userFound)
             throw new Error('User not found');
 
-        const validLogin = await userFound.login(password)
+        const validLogin = await userFound.login(password);
 
         if (!validLogin)
             throw new Error('Invalid password');
