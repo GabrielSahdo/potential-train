@@ -1,22 +1,12 @@
-import { BunSQLiteDatabase } from 'drizzle-orm/bun-sqlite';
-import { users } from '../db/schema';
 import { User } from './user.entity';
-import { eq } from 'drizzle-orm';
+import { IUserDAO } from './user.dao.interface';
 
 export default class UsersService {
-    private db;
 
-    constructor(db: BunSQLiteDatabase) {
-        this.db = db;
-    }
+    constructor(private dao: IUserDAO) {}
 
     async findByEmail(email: string): Promise<User | null> {
-        const userFound = await this.db
-            .select()
-            .from(users)
-            .where(eq(users.email, email))
-            .limit(1)
-            .execute();
+        const userFound = await this.dao.findByEmail(email);
 
         return userFound.length === 0
             ? null
@@ -31,7 +21,7 @@ export default class UsersService {
 
         const user = await User.build(email, password);
 
-        await this.db.insert(users).values(user.toDAO()).execute();
+        await this.dao.create(user.toDAO());
 
         return user.toDTO().id;
     }

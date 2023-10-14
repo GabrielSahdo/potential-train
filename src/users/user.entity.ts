@@ -1,6 +1,5 @@
 import crypto from 'node:crypto';
 import { UserDB } from '../db/schema';
-import { password } from 'bun';
 
 export class User {
     id: string;
